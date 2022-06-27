@@ -48,7 +48,7 @@ return require('packer').startup(function()
 	  	use "hrsh7th/cmp-buffer"
 	  	use "hrsh7th/cmp-path"
 	  	use "hrsh7th/cmp-cmdline"
-	  	use "hrsh7th/nvim-cmp"
+	  	use {"hrsh7th/nvim-cmp"}
 	  	use "L3MON4D3/LuaSnip"
 	  	use "saadparwaiz1/cmp_luasnip"
 	  	use {"williamboman/nvim-lsp-installer"}
@@ -60,44 +60,40 @@ return require('packer').startup(function()
 		end,
 		}
 		use 'onsails/lspkind.nvim'
-		use {
-  			"zbirenbaum/copilot.lua",
-  		event = {"VimEnter"},
-  		config = function()
-    		vim.defer_fn(function()
-      				require("copilot").setup {
-  					cmp = {
-    					enabled = true,
-    					method = "getCompletionsCycling",
-					}
-				}
-			end, 100)
-		end,
-		}
-		use {
-  			"zbirenbaum/copilot-cmp",
-  			module = "copilot_cmp",
-		}
-
-		--icing of the cake
+				--icing of the cake
 		use "nvim-lualine/lualine.nvim"
-	 	use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+	 	use {
+			'akinsho/bufferline.nvim', 
+			tag = "v2.*", 
+			requires = 'kyazdani42/nvim-web-devicons'
+		}
 	  	use 'goolord/alpha-nvim'
 	  	use "akinsho/toggleterm.nvim"
-		use {"christianchiarulli/nvim-gps", branch = "text_hl" }
 		use {
-    			"SmiteshP/nvim-navic",
-    			requires = "neovim/nvim-lspconfig"
+			"christianchiarulli/nvim-gps", 
+			branch = "text_hl" 
 		}
 
 		use 'ellisonleao/glow.nvim'
 		use "mhartington/formatter.nvim"
   	  	use "alvan/vim-closetag"
 	  	use "jiangmiao/auto-pairs"
-		use 'Pocco81/TrueZen.nvim'
+		use {'Pocco81/TrueZen.nvim',
+		opt = true,
+		event = "WinEnter",
+		config = function ()
+			require("true-zen").setup()
+		end,
+		}
         	use "lukas-reineke/indent-blankline.nvim"
-		use 'ray-x/go.nvim'
-		use 'ray-x/guihua.lua' -- recommanded if need floating window support
+		use {'ray-x/go.nvim',
+			opt = true,
+			event = "InsertEnter",
+			after = "nvim-cmp",
+			config = function ()
+				require('go').setup()
+			end
+		}
 	end)
 
 

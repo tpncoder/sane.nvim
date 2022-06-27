@@ -40,8 +40,7 @@ confirm_opts = {
       { name = "nvim_lsp" },
       { name = "vsnip" },
       { name = "buffer" },
-      { name = "path" },
-      { name = "copilot" },
+      { name = "path" }, 
     })
   })
 

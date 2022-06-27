@@ -65,7 +65,7 @@ local filetype = {
 local branch = {
 	"branch",
 	icons_enabled = true,
-	icon = " ",
+	icon = " ",
 }
 
 local location = {
