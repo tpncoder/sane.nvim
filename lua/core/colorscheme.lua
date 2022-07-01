@@ -4,7 +4,7 @@ local function colorChangeonTime()
 	local tableTime = os.date("*t")
 	local hour = tableTime.hour
 	if hour < 14 then
-		vim.cmd[[color onedark]]
+		vim.cmd[[color tokyonight]]
 	elseif hour >= 14 and hour < 16 then
 		vim.g.catppuccin_flavour = "frappe"
 		vim.cmd[[color catppuccin]]
