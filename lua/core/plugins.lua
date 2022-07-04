@@ -60,6 +60,8 @@ return require('packer').startup(function()
 		end,
 		}
 		use 'onsails/lspkind.nvim'
+		use { 'tami5/lspsaga.nvim' }  
+
 				--icing of the cake
 		use "nvim-lualine/lualine.nvim"
 	 	use {
