@@ -64,31 +64,26 @@ return require('packer').startup(function()
 
 				--icing of the cake
 		use "nvim-lualine/lualine.nvim"
-	 	use {
-			'akinsho/bufferline.nvim', 
-			tag = "v2.*", 
-			requires = 'kyazdani42/nvim-web-devicons'
-		}
+	 	use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
 	  	use 'goolord/alpha-nvim'
 	  	use "akinsho/toggleterm.nvim"
-		use {
-			"christianchiarulli/nvim-gps", 
-			branch = "text_hl" 
-		}
+		use {"christianchiarulli/nvim-gps", branch = "text_hl"}
 
 		use 'ellisonleao/glow.nvim'
 		use "mhartington/formatter.nvim"
   	  	use "alvan/vim-closetag"
 	  	use "jiangmiao/auto-pairs"
 		use {'Pocco81/TrueZen.nvim',
-		opt = true,
-		event = "WinEnter",
-		config = function ()
-			require("true-zen").setup()
-		end,
+			opt = true,
+			event = "WinEnter",
+			config = function ()
+				require("true-zen").setup()
+			end,
 		}
         	use "lukas-reineke/indent-blankline.nvim"
-		use {'ray-x/go.nvim',
+		
+		use {
+			'ray-x/go.nvim',
 			opt = true,
 			event = "InsertEnter",
 			after = "nvim-cmp",
@@ -96,6 +91,18 @@ return require('packer').startup(function()
 				require('go').setup()
 			end
 		}
+		use {
+			"simrat39/rust-tools.nvim",
+			config = function()
+				require('rust-tools').setup()
+			end,
+		}
+		use {
+    			'saecki/crates.nvim',
+    			tag = 'v0.2.1',
+    			requires = { 'nvim-lua/plenary.nvim' },
+    			config = function()
+        			require('crates').setup()
+    			end,
+		}
 	end)
-
-
