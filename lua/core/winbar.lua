@@ -13,6 +13,8 @@ M.winbar_filetype_exclude = {
   "Outline",
   "spectre_panel",
   "toggleterm",
+  "DressingSelect",
+  "",
 }
 
 local get_filename = function()
@@ -34,8 +36,9 @@ local get_filename = function()
       file_icon = ""
       file_icon_color = ""
     end
+    vim.api.nvim_set_hl(0, "Winbar", { fg = "#6b737f" })
 
-    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#LineNr#" .. filename .. "%*"
+    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#Winbar#" .. filename .. "%*"
   end
 end
 
@@ -55,8 +58,7 @@ local get_gps = function()
   end
 
   if not require("core.functions").isempty(gps_location) then
-    --return require("user.icons").ui.ChevronRight .. " " .. gps_location
-    return ">" .. " " .. gps_location
+    return "" .. " " .. gps_location
   else
     return ""
   end
@@ -87,8 +89,7 @@ M.get_winbar = function()
   end
 
   if not f.isempty(value) and f.get_buf_option "mod" then
-    --local mod = "%#LineNr#" .. require("user.icons").ui.ChevronRight .. "%*"
-    local mod = "%#LineNr#" .. ">" .. "%*"
+    local mod = "%#LspCodeLens#" .. "" .. "%*"
     if gps_added then
       value = value .. " " .. mod
     else
