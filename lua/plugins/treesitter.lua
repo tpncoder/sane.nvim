@@ -1,15 +1,13 @@
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
-  return
-end
-require"nvim-treesitter.configs".setup {
-  ensure_installed = { "c", "lua", "rust" },
-  sync_install = true,
-  ignore_install = { "javascript" },
+local options = {
+	ensure_installed = { "c", "lua", "rust", "go" },
+	sync_install = true,
+	ignore_install = {},
 
-  highlight = {
-    enable = true,
-    disable = { "c", "rust" },
-    additional_vim_regex_highlighting = false,
-  },
+	highlight = {
+		enable = true,
+		disable = {},
+		additional_vim_regex_highlighting = false,
+	},
 }
+
+require"nvim-treesitter.configs".setup(options) 

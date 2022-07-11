@@ -1,4 +1,4 @@
-GuiFont JetBrains Mono
+GuiFont JetBrains Mono Nerd Font
 GuiTabline 0
 
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>

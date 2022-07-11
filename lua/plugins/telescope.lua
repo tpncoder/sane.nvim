@@ -57,6 +57,4 @@ local options = {
    },
 }
 
--- check for any override
 telescope.setup(options)
-

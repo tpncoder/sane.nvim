@@ -26,8 +26,6 @@ local options = {
       custom_areas = {
          right = function()
             return {
-               { text = "%@Toggle_theme@" .. vim.g.toggle_theme_icon .. "%X" },
-               { text = "%@Quit_vim@ %X" },
             }
          end,
       },

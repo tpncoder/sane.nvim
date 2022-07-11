@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-toggleterm.setup({
+local setup = {
 	size = 20,
 	open_mapping = [[<c-\>]],
 	hide_numbers = true,
@@ -24,7 +24,9 @@ toggleterm.setup({
 			background = "Normal",
 		},
 	},
-})
+}
+
+require('toggleterm').setup(setup)
 
 function _G.set_terminal_keymaps()
   local opts = {noremap = true}
