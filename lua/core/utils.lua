@@ -6,6 +6,7 @@ vim.cmd[[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTre
 vim.cmd[[autocmd FileType Alpha set showtabline=0 | autocmd WinLeave <buffer> set showtabline=3]]
 vim.cmd[[:set cursorline]]
 vim.cmd[[set noshowmode]]
+vim.cmd[[hi statusline guibg=nvim_treebg guifg=nvim_treebg]]
 
 local vim = vim
 local opt = vim.opt
