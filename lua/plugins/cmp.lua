@@ -42,6 +42,7 @@ confirm_opts = {
       { name = "buffer" },
       { name = "path" },
       { name = "crates" },
+      { name = "luasnip" },
     })
   })
 
@@ -102,3 +103,5 @@ local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protoco
   require("lspconfig")["rust_analyzer"].setup {
     capabilities = capabilities
 }
+
+require("luasnip.loaders.from_lua").lazy_load()
