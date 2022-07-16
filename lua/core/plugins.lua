@@ -75,6 +75,13 @@ return require('packer').startup(function()
 				"christianchiarulli/nvim-gps", 
 				branch = "text_hl"
 		}
+		use "stevearc/dressing.nvim"
+		use({
+				"ziontee113/icon-picker.nvim",
+				config = function()
+						require("icon-picker")
+				end,
+		})
 
 		use 'ellisonleao/glow.nvim'
 		use "mhartington/formatter.nvim"
