@@ -21,7 +21,7 @@ local options = {
    },
    view = {
       side = "left",
-      width = 25,
+      width = 27,
       hide_root_folder = true,
    },
    git = {
@@ -53,14 +53,16 @@ local options = {
             default = "",
             symlink = "",
             folder = {
-               default = "",
-               empty = "",
-               empty_open = "",
-               open = "",
+               default = " ",
+               empty = " ",
+               empty_open = " ",
+               open = " ",
                symlink = "",
-               symlink_open = "",
-               arrow_open = "",
-               arrow_closed = "",
+               symlink_open = " ",
+               --arrow_open = "",
+               --arrow_closed = "",
+			   arrow_closed = "",
+               arrow_open = "",
             },
             git = {
                unstaged = "✗",
