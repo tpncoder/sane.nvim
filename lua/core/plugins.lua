@@ -101,32 +101,4 @@ return require('packer').startup(function()
 		use 'mfussenegger/nvim-dap'
 		use "rcarriga/nvim-dap-ui"
 		use "Pocco81/DAPInstall.nvim"
-
-		--Go
-		use {
-				'ray-x/go.nvim',
-				opt = true,
-				event = "InsertEnter",
-				after = "nvim-cmp",
-				config = function ()
-					require('go').setup()
-			end
-		}
-	
-		--Rust
-		use {
-			"simrat39/rust-tools.nvim",
-			config = function()
-				require('rust-tools').setup()
-			end,
-		}
-		
-		use {
-    			'saecki/crates.nvim',
-    			tag = 'v0.2.1',
-    			requires = { 'nvim-lua/plenary.nvim' },
-    			config = function()
-        			require('crates').setup()
-    			end,
-		}
 end)
