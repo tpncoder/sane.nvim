@@ -8,6 +8,8 @@ _G.__luacache_config = {
     path = vim.fn.stdpath('cache')..'/luacache_modpaths',
   }
 }
+
+vim.notify = require("notify")
 require('impatient')
 
 require('lspkind').init({

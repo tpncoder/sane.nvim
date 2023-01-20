@@ -58,7 +58,7 @@ local get_gps = function()
   end
 
   if not require("core.functions").isempty(gps_location) then
-    return "" .. " " .. gps_location
+    return "" .. " " .. gps_location
   else
     return ""
   end
@@ -89,7 +89,7 @@ M.get_winbar = function()
   end
 
   if not f.isempty(value) and f.get_buf_option "mod" then
-    local mod = "%#LspCodeLens#" .. "" .. "%*"
+    local mod = "%#LspCodeLens#" .. "" .. "%*"
     if gps_added then
       value = value .. " " .. mod
     else

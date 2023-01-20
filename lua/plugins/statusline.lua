@@ -1,113 +1,248 @@
-local status_ok, lualine = pcall(require, "lualine")
-if not status_ok then
-	return
-end
-local hide_in_width = function()
-	return vim.fn.winwidth(0) > 80
-end
+local conditions = require("heirline.conditions")
+local utils = require("heirline.utils")
+local colors = require("catppuccin.palettes").get_palette()
+local conditions = require("heirline.conditions")
 
-local diagnostics = {
-	"diagnostics",
-	sources = { "nvim_diagnostic" },
-	sections = { "error", "warn" },
-	symbols = { error = "  ", warn = " " },
-	colored = false,
-	update_in_insert = false,
-	always_visible = true,
+local Align = { provider = "%=", hl = { bg = '#101419' } }
+
+local ViMode = {
+    init = function(self)
+        self.mode = vim.fn.mode(1) -- :h mode()
+        if not self.once then
+            vim.api.nvim_create_autocmd("ModeChanged", {
+                pattern = "*:*o",
+                command = 'redrawstatus'
+            })
+            self.once = true
+        end
+    end,
+    static = {
+        mode_names = { -- change the strings if you like it vvvvverbose!
+			["n"] = "NORMAL",
+					["no"] = "OP",
+					["nov"] = "OP",
+					["noV"] = "OP",
+					["no"] = "OP",
+					["niI"] = "NORMAL",
+					["niR"] = "NORMAL",
+					["niV"] = "NORMAL",
+					["v"] = "VISUAL",
+					["vs"] = "VISUAL",
+					["V"] = "LINES",
+					["Vs"] = "LINES",
+					[""] = "BLOCK",
+					["s"] = "BLOCK",
+					["s"] = "SELECT",
+					["S"] = "SELECT",
+					[""] = "BLOCK",
+					["i"] = "INSERT",
+					["ic"] = "INSERT",
+					["ix"] = "INSERT",
+					["R"] = "REPLACE",
+					["Rc"] = "REPLACE",
+					["Rv"] = "V-REPLACE",
+					["Rx"] = "REPLACE",
+					["c"] = "COMMAND",
+					["cv"] = "COMMAND",
+					["ce"] = "COMMAND",
+					["r"] = "ENTER",
+					["rm"] = "MORE",
+					["r?"] = "CONFIRM",
+					["!"] = "SHELL",
+					["t"] = "TERM",
+					["nt"] = "TERM",
+					["null"] = "NONE",
+        },
+        mode_colors = {
+            n = "#70a5eb" ,
+            i = "#78dba9",
+            v = "#e05f65",
+            V =  "#e05f65",
+            ["\22"] =  "#74bee9",
+            c =  "#78dba9",
+            s =  "#c68aee",
+            S =  "#c68aee",
+            ["\19"] =  "#c68aee",
+            R =  "#e5646a",
+            r =  "#e5646a",
+            ["!"] =  "#e5646a",
+            t =  "#e5646a",
+        }
+    },
+    provider = function(self)
+        return "▍ %2("..self.mode_names[self.mode].."%) "
+    end,
+    hl = function(self)
+        local mode = self.mode:sub(1, 1) -- get only the first mode character
+        return { fg = self.mode_colors[mode], bold = true, bg="#1f2328"}
+    end,
+    update = {
+        "ModeChanged",
+    },
 }
 
-local function lspname()
-	local msg = 'No Active Lsp'
-	local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    	local clients = vim.lsp.get_active_clients()
-	if next(clients) == nil then
-      		return msg
-    	end
-    	for _, client in ipairs(clients) do
-      		local filetypes = client.config.filetypes
-      	if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        		return client.name
-      		end
-    	end
-    return msg
-end
-
-local lsp_name = {
-	lspname,
-	icon = "  LSP ~"
+local FileNameBlock = {
+	init = function(self)
+		self.filename = vim.api.nvim_buf_get_name(0)
+	end,
+	condition = conditions.buffer_not_empty,
+	hl = { bg = '#101419', fg = colors.subtext1 },
 }
 
-local diff = {
-	"diff",
-	colored = false,
-	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-  cond = hide_in_width
+local FileIcon = {
+	init = function(self)
+		local filename = self.filename
+		local extension = vim.fn.fnamemodify(filename, ":e")
+		self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
+			vim.fn.fnamemodify(filename, ":t"),
+			extension,
+			{ default = true }
+		)
+	end,
+	provider = function(self)
+		return self.icon and (" " .. self.icon .. " ")
+	end,
+	hl = function(self)
+		return { fg = self.icon_color }
+	end,
+}
+local FileName = {
+	provider = function(self)
+	local filename = vim.fn.fnamemodify(self.filename, ":~:.")
+		if filename == "" then
+			return " no file opened"
+		end
+		if filename == "NvimTree_1" then
+			return " Nvim Tree"
+		end
+
+		if filename == "t//~/.c/n//2/b/zsh;#toggleterm#1" then
+				return " toggleterm"
+		end
+
+		if not conditions.width_percent_below(#filename, 0.25) then
+			filename = vim.fn.pathshorten(filename)
+		end
+		return filename
+	end,
+	hl = { fg = colors.subtext1, bold = true },
 }
 
-local mode = {
-	"mode",
-	fmt = function(str)
-		return " " .. str .. ""
+local FileFlags = {
+	{
+		condition = function()
+			return vim.bo.modified
+		end,
+		provider = " ● ",
+		hl = { fg = colors.lavender },
+	},
+	{
+		condition = function()
+			return not vim.bo.modifiable or vim.bo.readonly
+		end,
+		provider = "",
+			hl = { fg = red },
+		},
+}
+
+local FileNameModifer = {
+	hl = function()
+		if vim.bo.modified then
+			return { fg = colors.text, bold = true, force = true }
+		end
 	end,
 }
 
-local progress = {
-	"progress",
-	icon = "",
+FileNameBlock = utils.insert(
+	FileNameBlock,
+		FileIcon,
+		utils.insert(FileNameModifer, FileName),
+		unpack(FileFlags),
+		{ provider = "%< " }
+	)
+
+local FileType = {
+	provider = function()
+		return " " .. string.upper(vim.bo.filetype) .. " "
+	end,
+	hl = { bg = '#101419', fg = colors.surface2 },
 }
 
-local filetype = {
-	"filetype",	
-	icons_enabled = true,
-	icon = nil,
+local LSPActive = {
+	update = { "LspAttach", "LspDetach" },
+	provider = function()
+	local names = {}
+		for _, server in pairs(vim.lsp.get_active_clients()) do
+			if server.name ~= "null-ls" then
+				table.insert(names, server.name)
+			end
+		end
+		return "▍  " .. table.concat(names, " ") .. "   "
+	end,
+	hl = {fg = '#4d82c8', bold = true, italic = false },
+}
+local Diagnostics = {
+    condition = conditions.has_diagnostics,
+
+    static = {
+        error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
+        warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+        info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+        hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+    },
+
+    init = function(self)
+        self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+        self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+        self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+        self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    end,
+
+    update = { "DiagnosticChanged", "BufEnter" },
+
+    {
+        provider = "",
+    },
+    {
+        provider = function(self)
+            return self.errors > 0 and (" " .. self.error_icon .. self.errors .. " ")
+        end,
+		hl = { fg = '#bd3c42' }
+    },
+    {
+        provider = function(self)
+            return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings .. " ")
+        end,
+		hl = { fg = '#ceac67'}
+    },
+    {
+        provider = function(self)
+            return self.info > 0 and (" " .. self.info_icon .. self.info .. " ")
+        end,
+		hl = { fg = '#5287cd'}
+    },
+    {
+        provider = function(self)
+            return self.hints > 0 and (" " .. self.hint_icon .. self.hints .. " ")
+        end,
+		hl = { fg = '#69b373'}
+    }
 }
 
-local branch = {
-	"branch",
-	icons_enabled = true,
-	icon = " ",
+local DiagnosticArrow = {
+	provider = "",
+	hl = { fg = '#1f2328' },
 }
 
-local location = {
-	"location",
-	padding = 2,
+local StatusLine = {
+	ViMode,
+	FileNameBlock,
+	Align,
+	
+	LSPActive,
+	Diagnostics
 }
 
-local filename = {
-	"filename",
-	icon = "  "
-}
-
-local spaces = function()
-	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
-
-lualine.setup({
-	options = {
-		icons_enabled = true,
-		theme = "auto",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = { "NvimTree", "Outline", "toggleterm" },
-		always_divide_middle = true,
-	},
-	sections = {
-		lualine_a = { mode },
-		lualine_b = { filename },
-		lualine_c = { branch },
-		-- lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_x = { diagnostics },
-		lualine_y = { lsp_name },
-		lualine_z = { progress },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename"},
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	extensions = {},
+require("heirline").setup({
+	statusline = StatusLine
 })

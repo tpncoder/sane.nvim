@@ -8,6 +8,9 @@ vim.cmd[[:set cursorline]]
 vim.cmd[[set noshowmode]]
 vim.cmd[[hi statusline guibg=nvim_treebg guifg=nvim_treebg]]
 vim.cmd[[set tabstop=4]]
+vim.cmd[[set mousemoveevent]]
+vim.cmd[[set shiftwidth=4]]
+vim.cmd[[set tabstop=4]]
 
 local vim = vim
 local opt = vim.opt
@@ -30,3 +33,9 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost", "Inse
     require("core.winbar").get_winbar()
   end,
 })
+
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]

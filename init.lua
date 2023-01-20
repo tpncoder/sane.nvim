@@ -1,5 +1,3 @@
-require('core.boilerplate')
-require('core.languages.rust')
 require('core.colorscheme')
 require('core.functions')
 require('core.mappings')
@@ -17,3 +15,5 @@ require('plugins.telescope')
 require('plugins.terminal')
 require('plugins.treesitter')
 require('plugins.whichkey')
+
+vim.cmd[[set fillchars=vert:\ ]]

@@ -38,14 +38,14 @@ local options = {
       highlight_opened_files = "none",
 
       indent_markers = {
-         enable = false,
+         enable = true,
       },
 
       icons = {
          show = {
             file = true,
             folder = true,
-            folder_arrow = true,
+            folder_arrow = false,
             git = false,
          },
 
@@ -59,8 +59,8 @@ local options = {
                open = " ",
                symlink = "",
                symlink_open = " ",
-               --arrow_open = "",
-               --arrow_closed = "",
+               arrow_open = "",
+               arrow_closed = "",
 			   arrow_closed = "",
                arrow_open = "",
             },

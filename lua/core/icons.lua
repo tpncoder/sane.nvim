@@ -74,7 +74,7 @@ return {
     BookMark = "",
     Pencil = "",
     -- ChevronRight = "",
-    ChevronRight = "",
+    ChevronRight = "",
     Table = "",
     Calendar = "",
   },

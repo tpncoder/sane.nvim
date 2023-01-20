@@ -15,8 +15,22 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
-vim.cmd [[packadd packer.nvim]]
---packages
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
+packer.init {
+  -- snapshot = "july-24",
+  snapshot_path = fn.stdpath "config" .. "/snapshots",
+  max_jobs = 50,
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "rounded" }
+    end,
+    prompt_border = "rounded", -- Border style of prompt popups.
+  },
+}
 
 
 return require('packer').startup(function()
@@ -38,6 +52,7 @@ return require('packer').startup(function()
 		use "ellisonleao/gruvbox.nvim"
 		use 'NTBBloodbath/doom-one.nvim'
 		use 'tomasiser/vim-code-dark'
+		use 'decaycs/decay.nvim'
 
 		--completion and lsp
 	  	use "hrsh7th/vim-vsnip"
@@ -61,6 +76,8 @@ return require('packer').startup(function()
 		use 'onsails/lspkind.nvim'
 		use 'tami5/lspsaga.nvim'
 		use "rafamadriz/friendly-snippets"
+		use { "williamboman/mason.nvim" }
+		use 'rcarriga/nvim-notify'
 
 		--icing of the cake
 		use "nvim-lualine/lualine.nvim"
@@ -69,6 +86,7 @@ return require('packer').startup(function()
 				tag = "v2.*", 
 				requires = 'kyazdani42/nvim-web-devicons'
 		}
+		use({"rebelot/heirline.nvim"})
 	  	use 'goolord/alpha-nvim'
 	  	use "akinsho/toggleterm.nvim"
 		use {
@@ -82,6 +100,12 @@ return require('packer').startup(function()
 						require("icon-picker")
 				end,
 		})
+		use {
+			'lewis6991/gitsigns.nvim',
+			config = function()
+				require('gitsigns').setup()
+			end
+		}
 
 		use 'ellisonleao/glow.nvim'
 		use "mhartington/formatter.nvim"
@@ -102,3 +126,4 @@ return require('packer').startup(function()
 		use "rcarriga/nvim-dap-ui"
 		use "Pocco81/DAPInstall.nvim"
 end)
+

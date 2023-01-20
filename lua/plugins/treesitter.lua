@@ -1,5 +1,5 @@
 local options = {
-	ensure_installed = { "c", "lua", "rust", "go" },
+	ensure_installed = { },
 	sync_install = true,
 	ignore_install = {},
 
