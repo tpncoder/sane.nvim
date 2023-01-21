@@ -49,10 +49,9 @@ return require('packer').startup(function()
 	  	use "catppuccin/nvim"
 	  	use "folke/tokyonight.nvim"
 		use 'navarasu/onedark.nvim'
-		use "ellisonleao/gruvbox.nvim"
-		use 'NTBBloodbath/doom-one.nvim'
 		use 'tomasiser/vim-code-dark'
 		use 'decaycs/decay.nvim'
+		use { 'Everblush/everblush.nvim', as = 'everblush' }
 
 		--completion and lsp
 	  	use "hrsh7th/vim-vsnip"
@@ -80,12 +79,12 @@ return require('packer').startup(function()
 		use 'rcarriga/nvim-notify'
 
 		--icing of the cake
-		use "nvim-lualine/lualine.nvim"
 		use {
 				'akinsho/bufferline.nvim', 
 				tag = "v2.*", 
 				requires = 'kyazdani42/nvim-web-devicons'
 		}
+		use 'NvChad/nvim-colorizer.lua'
 		use({"rebelot/heirline.nvim"})
 	  	use 'goolord/alpha-nvim'
 	  	use "akinsho/toggleterm.nvim"
@@ -105,6 +104,12 @@ return require('packer').startup(function()
 			config = function()
 				require('gitsigns').setup()
 			end
+		}
+		use {
+    		'numToStr/Comment.nvim',
+    		config = function()
+    		    require('Comment').setup()
+    		end
 		}
 
 		use 'ellisonleao/glow.nvim'

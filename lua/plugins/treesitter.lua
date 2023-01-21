@@ -1,5 +1,5 @@
 local options = {
-	ensure_installed = { },
+	ensure_installed = { c, help, lua, vim},
 	sync_install = true,
 	ignore_install = {},
 

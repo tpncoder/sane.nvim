@@ -16,4 +16,5 @@ require('plugins.terminal')
 require('plugins.treesitter')
 require('plugins.whichkey')
 
+
 vim.cmd[[set fillchars=vert:\ ]]
