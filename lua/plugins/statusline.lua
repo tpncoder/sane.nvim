@@ -116,11 +116,7 @@ local FileName = {
 			return " Nvim Tree"
 		end
 
-		if filename == "t//~/.c/n//2/b/zsh;#toggleterm#1" then
-				return " toggleterm"
-		end
-
-		if not conditions.width_percent_below(#filename, 0.25) then
+		if not conditions.width_percent_below(#filename, 1) then
 			filename = vim.fn.pathshorten(filename)
 		end
 		return filename
@@ -177,61 +173,9 @@ local LSPActive = {
 				table.insert(names, server.name)
 			end
 		end
-		return "▍  " .. table.concat(names, " ") .. "   "
+		return table.concat(names, " ") .. " "
 	end,
 	hl = {fg = '#4d82c8', bold = true, italic = false },
-}
-local Diagnostics = {
-    condition = conditions.has_diagnostics,
-
-    static = {
-        error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-        warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-        info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-        hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
-    },
-
-    init = function(self)
-        self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-        self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-        self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-        self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
-    end,
-
-    update = { "DiagnosticChanged", "BufEnter" },
-
-    {
-        provider = "",
-    },
-    {
-        provider = function(self)
-            return self.errors > 0 and (" " .. self.error_icon .. self.errors .. " ")
-        end,
-		hl = { fg = '#bd3c42' }
-    },
-    {
-        provider = function(self)
-            return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings .. " ")
-        end,
-		hl = { fg = '#ceac67'}
-    },
-    {
-        provider = function(self)
-            return self.info > 0 and (" " .. self.info_icon .. self.info .. " ")
-        end,
-		hl = { fg = '#5287cd'}
-    },
-    {
-        provider = function(self)
-            return self.hints > 0 and (" " .. self.hint_icon .. self.hints .. " ")
-        end,
-		hl = { fg = '#69b373'}
-    }
-}
-
-local DiagnosticArrow = {
-	provider = "",
-	hl = { fg = '#1f2328' },
 }
 
 local StatusLine = {
@@ -240,7 +184,6 @@ local StatusLine = {
 	Align,
 	
 	LSPActive,
-	Diagnostics
 }
 
 require("heirline").setup({

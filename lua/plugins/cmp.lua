@@ -13,7 +13,6 @@ require("luasnip/loaders/from_vscode").lazy_load()
 cmp.setup({
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
@@ -33,11 +32,10 @@ cmp.setup({
 
 confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
-		select = false,
+		select = true,
 	},
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
-	  { name = "nvim_lsp_signature_help" },
       { name = "buffer" },
       { name = "path" },
       { name = "crates" },
@@ -82,5 +80,7 @@ require("lspconfig")["eslint"].setup { capabilities = capabilities }
 require("lspconfig")["tsserver"].setup { capabilities = capabilities }
 require("lspconfig")["vuels"].setup { capabilities = capabilities }
 require("lspconfig")["volar"].setup { capabilities = capabilities }
+require("lspconfig")["tailwindcss"].setup { capabilities = capabilities }
 
 require("luasnip.loaders.from_lua").lazy_load()
+

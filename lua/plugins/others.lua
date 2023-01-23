@@ -9,7 +9,6 @@ _G.__luacache_config = {
   }
 }
 
-vim.notify = require("notify")
 require('impatient')
 
 require('lspkind').init({
@@ -47,5 +46,4 @@ require('lspkind').init({
 
 require("nvim-lsp-installer").setup {}
 require("which-key").setup {}
-require("nvim-gps").setup()
 
