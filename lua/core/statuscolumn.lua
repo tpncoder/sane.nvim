@@ -128,7 +128,6 @@ _G.StatusColumn = {
     border      = {
       [[%#StatusColumnBorder#]], -- HL
       -- I don't like the border, but I might change my mind
-      [[▐]],
     },
     padding     = {
       [[%#StatusColumnBuffer#]], -- HL
