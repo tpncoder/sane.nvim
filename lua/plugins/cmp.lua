@@ -81,6 +81,7 @@ require("lspconfig")["tsserver"].setup { capabilities = capabilities }
 require("lspconfig")["vuels"].setup { capabilities = capabilities }
 require("lspconfig")["volar"].setup { capabilities = capabilities }
 require("lspconfig")["tailwindcss"].setup { capabilities = capabilities }
+require("lspconfig")["jdtls"].setup { capabilities = capabilities }
 
 require("luasnip.loaders.from_lua").lazy_load()
 

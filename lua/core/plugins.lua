@@ -1,14 +1,5 @@
 return {
 'lewis6991/impatient.nvim',
-{
-  "roobert/tailwindcss-colorizer-cmp.nvim",
-  -- optionally, override the default options:
-  config = function()
-    require("tailwindcss-colorizer-cmp").setup({
-      color_square_width = 2,
-    })
-  end
-},
 "nvim-telescope/telescope.nvim",
 "nvim-treesitter/nvim-treesitter",
 "kyazdani42/nvim-tree.lua",
@@ -16,7 +7,6 @@ return {
 "nvim-lua/plenary.nvim",
 'decaycs/decay.nvim',
 "neovim/nvim-lspconfig",
-"simrat39/symbols-outline.nvim",
 "williamboman/nvim-lsp-installer",
 "folke/trouble.nvim" ,
 'onsails/lspkind.nvim',
@@ -32,6 +22,10 @@ return {
 "alvan/vim-closetag",
 "jiangmiao/auto-pairs",
 "lukas-reineke/indent-blankline.nvim",
+{
+	"folke/neodev.nvim",
+	config = true
+},
 
 { 
 	"folke/which-key.nvim", 
@@ -58,11 +52,6 @@ return {
 		"neovim/nvim-lspconfig",
 		"SmiteshP/nvim-navic",
 	},
-	config = true
-},
-
-{
-	"windwp/nvim-autopairs",
 	config = true
 },
 
