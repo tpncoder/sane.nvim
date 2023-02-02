@@ -10,6 +10,14 @@ vim.cmd[[hi statusline guibg=nvim_treebg guifg=nvim_treebg]]
 vim.cmd[[set mousemoveevent]]
 vim.cmd[[set shiftwidth=2]]
 vim.cmd[[set tabstop=2]]
+vim.cmd[[
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldtext=getline(v:foldstart).'...'.trim(getline(v:foldend))
+set fillchars=fold:\\
+set foldnestmax=3
+set foldminlines=1
+]]
 
 local vim = vim
 local opt = vim.opt
@@ -76,31 +84,3 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
-local vim = vim
-local api = vim.api
-local M = {}
--- function to create a list of commands and convert them to autocommands
--------- This function is taken from https://github.com/norcalli/nvim_utils
-function M.nvim_create_augroups(definitions)
-    for group_name, definition in pairs(definitions) do
-        api.nvim_command('augroup '..group_name)
-        api.nvim_command('autocmd!')
-        for _, def in ipairs(definition) do
-            local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-            api.nvim_command(command)
-        end
-        api.nvim_command('augroup END')
-    end
-end
-
-
-local autoCommands = {
-    -- other autocommands
-    open_folds = {
-        {"BufReadPost,FileReadPost", "*", "normal zR"}
-    }
-}
-
-M.nvim_create_augroups(autoCommands)
-
-vim.cmd[[set fillchars+=vert:\ ]]
