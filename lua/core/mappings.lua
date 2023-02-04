@@ -28,3 +28,6 @@ keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = 
 keymap("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", { noremap = true })
 keymap("i", "<C-d>", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true })
 keymap("n", "<C-d>", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true })
+keymap("n", "<C-w>", "<cmd>bdelete<CR>", { noremap = true })
+keymap("n", "<C-b><C-n>", "<cmd>bnext<CR>", { noremap = true })
+keymap("n", "<C-b><C-p>", "<cmd>bprevious<CR>", { noremap = true })
