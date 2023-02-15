@@ -1,0 +1,6 @@
+require('core.colorscheme')
+require('core.mappings')
+require('core.utils')
+require('core.statuscolumn')
+require('core.autocommands')
+require("core.highlights")

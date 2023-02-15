@@ -1,2 +1,1 @@
--- vim.opt.background = "dark"
-vim.cmd[[color dark-decay]]
+vim.cmd[[colorscheme dark-decay]]

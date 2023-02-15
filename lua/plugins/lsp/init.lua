@@ -70,5 +70,4 @@ vim.diagnostic.config({
     float = { border = "single" },
 })
 
-require("mason").setup()
-
+require('mason').setup()
