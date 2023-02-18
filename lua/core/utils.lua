@@ -24,5 +24,7 @@ g.foldminlines=1
 g.foldmethod=expr
 g.mouse=a
 
+vim.cmd "hi NvimTreeWinSeparator guifg='#101419' guibg='#101419'"
+
 cmd[[set fillchars+=vert:\  ]]
 cmd[[set fillchars=fold:\\ ]]

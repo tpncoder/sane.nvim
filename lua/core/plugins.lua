@@ -39,6 +39,10 @@ return {
 	config = true,
 },
 {
+	"evanleck/vim-svelte",
+	ft="svelte"
+},
+{
 	'mrjones2014/legendary.nvim',
 	cmd = "Legendary"
 },
