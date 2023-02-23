@@ -20,7 +20,10 @@ return {
 	cmd = "NvimTreeToggle"
 },
 "kyazdani42/nvim-web-devicons",
-"nvim-lua/plenary.nvim",
+{
+	"nvim-lua/plenary.nvim",
+	event = "VeryLazy"
+},
 {
 	"catppuccin/nvim",
 	lazy = true
