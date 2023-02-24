@@ -15,6 +15,7 @@ local excluded_filetypes_for_ornaments = {
   ['prompt'] = true,
   ['NvimTree'] = true,
   ['alpha'] = true,
+	['neo-tree'] = true
 }
 
 local excluded_filetypes_for_line_num = {
@@ -23,7 +24,7 @@ local excluded_filetypes_for_line_num = {
   ['prompt'] = true,
   ['NvimTree'] = true,
   ['alpha'] = true,
-
+	['neo-tree'] = true
 }
 
 _G.StatusColumn = {

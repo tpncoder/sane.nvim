@@ -6,14 +6,36 @@ return {
 	cmd = "Telescope"
 },
 {
+  'VonHeikemen/lsp-zero.nvim',
+  branch = 'v1.x',
+  dependencies = {
+    -- LSP Support
+    {'neovim/nvim-lspconfig'},             -- Required
+    {'williamboman/mason.nvim'},           -- Optional
+    {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+    -- Autocompletion
+    {'hrsh7th/nvim-cmp'},         -- Required
+    {'hrsh7th/cmp-nvim-lsp'},     -- Required
+    {'hrsh7th/cmp-buffer'},       -- Optional
+    {'hrsh7th/cmp-path'},         -- Optional
+    {'saadparwaiz1/cmp_luasnip'}, -- Optional
+    {'hrsh7th/cmp-nvim-lua'},     -- Optional
+
+    -- Snippets
+    {'rafamadriz/friendly-snippets'}, -- Optional
+  }
+},
+{
+  "nvim-neo-tree/neo-tree.nvim"
+},
+{ 'Everblush/nvim', name = 'everblush' },
+{
 	"nvim-treesitter/nvim-treesitter",
 	event = "BufReadPre"
 },
 {
 	'tjdevries/colorbuddy.nvim'
-},
-{
-	"dimaportenko/telescope-simulators.nvim"
 },
 {
 	"kyazdani42/nvim-tree.lua",
@@ -23,6 +45,13 @@ return {
 {
 	"nvim-lua/plenary.nvim",
 	event = "VeryLazy"
+},
+{
+	"L3MON4D3/LuaSnip",
+	-- follow latest release.
+	version = "<CurrentMajor>.*",
+	-- install jsregexp (optional!).
+	build = "make install_jsregexp"
 },
 {
 	"catppuccin/nvim",
@@ -49,7 +78,6 @@ return {
 	'mrjones2014/legendary.nvim',
 	cmd = "Legendary"
 },
-"williamboman/mason-lspconfig.nvim",
 { 
 	"ziontee113/icon-picker.nvim",
 	config = true
@@ -59,13 +87,11 @@ return {
 	"neovim/nvim-lspconfig",
 	event = "VeryLazy"
 },
-"williamboman/nvim-lsp-installer",
 {
 	"folke/trouble.nvim" ,
 	cmd = "Trouble",
 },
 'tami5/lspsaga.nvim',
-"williamboman/mason.nvim",
 'akinsho/bufferline.nvim', 
 "rebelot/heirline.nvim",
 'goolord/alpha-nvim',
@@ -135,7 +161,6 @@ return {
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
 		"saadparwaiz1/cmp_luasnip",
-		"L3MON4D3/LuaSnip",
 		"rafamadriz/friendly-snippets",
 	},
 },

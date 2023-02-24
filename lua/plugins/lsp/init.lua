@@ -1,15 +1,3 @@
-require("nvim-lsp-installer").setup({
-   ensure_installed = { }, -- ensure these servers are always installed
-   automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-   	ui = {
-        icons = {
-            server_installed = "✓",
-            pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-})
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = false,
@@ -70,4 +58,14 @@ vim.diagnostic.config({
     float = { border = "single" },
 })
 
-require('mason').setup()
+local lsp = require('lsp-zero').preset({
+  name = 'minimal',
+  set_lsp_keymaps = true,
+  manage_nvim_cmp = true,
+  suggest_lsp_servers = false,
+})
+
+-- (Optional) Configure lua language server for neovim
+lsp.nvim_workspace()
+
+lsp.setup()

@@ -4,18 +4,12 @@ if not cmp_status_ok then
 end
 
 local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-  return
-end
-
+if not snip_status_ok then return end
 require("luasnip/loaders/from_vscode").lazy_load()
 
 cmp.setup({
     snippet = {
-      expand = function(args)
-        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-      end,
-    },
+    expand = function(args) luasnip.lsp_expand(args.body) end,},
     window = {
 		completion = {
       		scrollbar = false,
@@ -73,7 +67,7 @@ cmp.setup {
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require("lspconfig")["svelte"].setup { capabilities = capabilities }
-require("lspconfig")["sumneko_lua"].setup { capabilities = capabilities }
+--require("lspconfig")["sumneko_lua"].setup { capabilities = capabilities }
 require("lspconfig")["eslint"].setup { capabilities = capabilities }
 require("lspconfig")["tsserver"].setup { capabilities = capabilities }
 require("lspconfig")["vuels"].setup { capabilities = capabilities }
