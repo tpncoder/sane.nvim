@@ -1,4 +1,4 @@
-vim.g.nvim_tree_width = 25
+--[[ vim.g.nvim_tree_width = 25
 require 'nvim-tree'.setup {
   renderer = {
     indent_markers = {
@@ -62,3 +62,85 @@ vim.cmd [[
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 ]]
+
+local present, nvimtree = pcall(require, "nvim-tree")
+
+if not present then
+  return
+end
+
+local options = {
+  filters = {
+    dotfiles = false,
+  },
+  disable_netrw = true,
+  hijack_netrw = true,
+  hijack_cursor = true,
+  hijack_unnamed_buffer_when_opening = false,
+  update_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_cwd = false,
+  },
+  view = {
+    adaptive_size = true,
+    side = "left",
+    width = 35,
+    hide_root_folder = true,
+  },
+  git = {
+    enable = false,
+    ignore = true,
+  },
+  filesystem_watchers = {
+    enable = true,
+  },
+  actions = {
+    open_file = {
+      resize_window = true,
+    },
+  },
+  renderer = {
+    highlight_git = false,
+    highlight_opened_files = "none",
+
+    indent_markers = {
+      enable = false,
+    },
+
+    icons = {
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = false,
+      },
+
+      glyphs = {
+        default = "",
+        symlink = "",
+        folder = {
+          default = "",
+          empty = "",
+          empty_open = "",
+          open = "",
+          symlink = "",
+          symlink_open = "",
+          arrow_open = "",
+          arrow_closed = "",
+        },
+        git = {
+          unstaged = "✗",
+          staged = "✓",
+          unmerged = "",
+          renamed = "➜",
+          untracked = "★",
+          deleted = "",
+          ignored = "◌",
+        },
+      },
+    },
+  },
+}
+
+nvimtree.setup(options)

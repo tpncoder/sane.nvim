@@ -11,7 +11,7 @@ local options = {
 		delay = 200,
 		reveal = {'close'}
 	}, 
-    offsets = { { filetype = "NvimTree", text = "", padding = 0 } },
+    offsets = { { filetype = "neo-tree", text = "", padding = 0 } },
     buffer_close_icon = "",
     modified_icon = "",
     close_icon = "",

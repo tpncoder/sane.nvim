@@ -53,14 +53,19 @@ confirm_opts = {
  local lspkind = require('lspkind')
 cmp.setup {
   formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol', -- show only symbol annotations
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
-      before = function (entry, vim_item)
-        return vim_item
-      end
-    })
+		fields = { "kind", "abbr", "menu" },
+      format = function(entry, item)
+        local icons = require("core.icons").kinds
+    	    item.kind = icons[item.kind]
+      	  item.menu = ({
+            nvim_lsp = "Lsp",
+            nvim_lua = "Lua",
+            luasnip = "Snippet",
+            buffer = "Buffer",
+            path = "Path",
+          })[entry.source.name]
+            return item
+          end,
   }
 }
 

@@ -1,28 +1,14 @@
 local neotree = require("neo-tree")
 local icons = require("core.icons")
-
+--
 neotree.setup({
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
-  -- popup_border_style = { "▄", "▄", "▄", "█", "▀", "▀", "▀", "█" },
-  -- popup_border_style = "rounded",
-  enable_git_status = true,
-  enable_diagnostics = true,
-  sources = {
-    "filesystem",
-    "buffers",
-    "git_status",
-  },
+
   source_selector = {
-    winbar = true,
+    winbar = false,
     statusline = false, -- toggle to show selector on statusline
     content_layout = "center",
     tabs_layout = "equal",
-    tab_labels = {
-      filesystem = "" .. " Files",
-      buffers = "" .. " Bufs",
-      -- git_status = "" .. " Git",
-      -- diagnostics = "裂" .. " Diagnostics",
-    },
   },
   default_component_configs = {
     container = {
@@ -30,30 +16,20 @@ neotree.setup({
     },
     indent = {
       indent_size = 2,
-      padding = 1, -- extra padding on left hand side
-      -- indent guides
+      padding = 3, -- extra padding on left hand side
+      -- with_markers = false,
       with_markers = true,
-      -- indent_marker = "│",
-      -- last_indent_marker = "└",-- └
       indent_marker = "▏",
       last_indent_marker = "▏",
       highlight = "NeoTreeIndentMarker",
-      -- expander config, needed for nesting files
-      with_expanders = false, -- if nil and file nesting is enabled, will enable expanders
-      -- expander_collapsed = "",
-      -- expander_expanded = "",
-
-      expander_collapsed = "",
-      expander_expanded = "",
+      with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+      expander_collapsed = "",
+      expander_expanded = "",
       expander_highlight = "NeoTreeExpander",
     },
     icon = {
       folder_closed = "",
       folder_open = "",
-      -- folder_closed = "",
-      -- folder_open = "",
-      -- folder_closed = " ",
-      -- folder_open = " ",
       folder_empty = "",
       default = " ",
       highlight = "NeoTreeFileIcon",
@@ -69,15 +45,12 @@ neotree.setup({
     },
     git_status = {
       symbols = {
-        -- Change type
         added = icons.git.added, -- or "✚", but this is redundant info if you use git_status_colors on the name
         modified = icons.git.modified, -- or "", but this is redundant info if you use git_status_colors on the name
         deleted = icons.git.removed, -- this can only be used in the git_status source
         renamed = "", -- this can only be used in the git_status source
-        -- Status type
         untracked = "",
         ignored = "",
-        -- unstaged = "",
         unstaged = "U",
         staged = "",
         conflict = "",
@@ -115,14 +88,11 @@ neotree.setup({
       ["l"] = "open",
       ["S"] = "open_split",
       ["s"] = "open_vsplit",
-      -- ["S"] = "split_with_window_picker",
-      -- ["s"] = "vsplit_with_window_picker",
       ["t"] = "open_tabnew",
       ["w"] = "open_with_window_picker",
       ["C"] = "close_node",
       ["a"] = {
         "add",
-        -- some commands may take optional config options, see `:h neo-tree-mappings` for details
         config = {
           show_path = "none", -- "none", "relative", "absolute"
         },
@@ -141,34 +111,17 @@ neotree.setup({
     },
   },
   nesting_rules = {
-    -- ["js"] = { "js.map" },
   },
   filesystem = {
     filtered_items = {
       visible = false, -- when true, they will just be displayed differently than normal items
       hide_dotfiles = false,
       hide_gitignored = false,
-      hide_by_name = {
-        --"node_modules"
-      },
-      hide_by_pattern = { -- uses glob style patterns
-        --"*.meta"
-      },
-      never_show = { -- remains hidden even if visible is toggled to true
-        --".DS_Store",
-        --"thumbs.db"
-      },
     },
     follow_current_file = true, -- This will find and focus the file in the active buffer every
-    -- time the current file is changed while the tree is open.
     group_empty_dirs = false, -- when true, empty folders will be grouped together
     hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-    -- in whatever position is specified in window.position
-    -- "open_current",  -- netrw disabled, opening a directory opens within the
-    -- window like netrw would, regardless of window.position
-    -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
     use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
-    -- instead of relying on nvim autocmd events.
     window = {
       mappings = {
         ["H"] = "navigate_up",
@@ -184,7 +137,6 @@ neotree.setup({
   },
   buffers = {
     follow_current_file = true, -- This will find and focus the file in the active buffer every
-    -- time the current file is changed while the tree is open.
     group_empty_dirs = true, -- when true, empty folders will be grouped together
     show_unloaded = true,
     window = {
@@ -208,7 +160,7 @@ neotree.setup({
         ["gg"] = "git_commit_and_push",
       },
     },
-  },
+  }, 
   renderers = {
     directory = {
       { "indent" },
@@ -218,11 +170,6 @@ neotree.setup({
         "container",
         content = {
           { "name",      zindex = 10 },
-          -- {
-          --   "symlink_target",
-          --   zindex = 10,
-          --   highlight = "NeoTreeSymbolicLinkTarget",
-          -- },
         },
       },
     },
@@ -235,12 +182,7 @@ neotree.setup({
           {
             "name",
             zindex = 10,
-          },
-          -- {
-          --   "symlink_target",
-          --   zindex = 10,
-          --   highlight = "NeoTreeSymbolicLinkTarget",
-          -- },
+         },
           { "bufnr",       zindex = 10 },
         },
       },
