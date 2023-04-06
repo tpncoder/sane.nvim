@@ -1,3 +1,5 @@
+
+
 require('plugins.lsp')
 require('plugins.alpha')
 require('plugins.bufferline')

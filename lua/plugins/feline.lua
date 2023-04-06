@@ -7,7 +7,7 @@ end
 
 local theme = {
   aqua = "#7AB0DF",
-  bg = "#141b1e",
+  bg = "#101317",
   blue = "#5FB0FC",
   cyan = "#70C0BA",
   darkred = "#FB7373",
@@ -46,7 +46,7 @@ component.vim_mode = {
 	provider = 'vi_mode',
   hl = function()
     return {
-      fg = "bg",
+      fg = "#141b1e",
       bg = require("feline.providers.vi_mode").get_mode_color(),
       style = "bold",
       name = "NeovimModeHLColor",

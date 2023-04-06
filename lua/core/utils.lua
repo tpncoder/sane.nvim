@@ -17,14 +17,13 @@ opt.foldcolumn = '1'
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 g.foldnestmax=3
 g.foldminlines=1
 g.foldmethod=expr
 g.mouse=a
 
-vim.cmd "hi NvimTreeWinSeparator guifg='#101419' guibg='#101419'"
-
 cmd[[set fillchars+=vert:\  ]]
 cmd[[set fillchars=fold:\\ ]]
+cmd[[set fillchars=eob:\ ]]
